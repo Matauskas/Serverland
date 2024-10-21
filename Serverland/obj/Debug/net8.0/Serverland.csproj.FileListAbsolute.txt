@@ -1,0 +1,6 @@
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.AssemblyInfoInputs.cache
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.AssemblyInfo.cs
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.csproj.CoreCompileInputs.cache
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Matauskas\Desktop\Serverland\Serverland\obj\Debug\net8.0\Serverland.sourcelink.json
