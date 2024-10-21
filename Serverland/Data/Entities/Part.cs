@@ -1,5 +1,5 @@
 namespace Serverland.Data.Entities;
-
+using Serverland.Data.DatabaseObjects;
 public class Part
 {
     public int Id { get; set; }
@@ -12,4 +12,9 @@ public class Part
     public required string PSU { get; set; }
     public required bool Rails { get; set; }
     public int serverId { get; set; }
+
+    public PartDto ToDto()
+    {
+        return new PartDto(Id, CPU, RAM,Raid,Network,SSD,HDD,PSU,Rails,serverId);
+    }
 }

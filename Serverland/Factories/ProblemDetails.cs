@@ -1,10 +1,10 @@
-namespace Serverland.Factories
+namespace Serverland.Factories;
 using FluentValidation.Results;
 using SharpGrip.FluentValidation.AutoValidation.Endpoints.Results;
 using SharpGrip.FluentValidation.AutoValidation.Shared.Extensions;
 
 
-public class ProblemDetailsResultFactory : IFluentValidationAutoValidationResultFactory
+public class ProblemDetails : IFluentValidationAutoValidationResultFactory
 {
     public IResult CreateResult(EndpointFilterInvocationContext context, ValidationResult validationResult)
     {

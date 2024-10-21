@@ -15,7 +15,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.SetBasePath(builder.Environment.ContentRootPath); // Ensure the base path is correct
-builder.Configuration.AddJsonFile("./startup/configs/appsettings.json", optional: false, reloadOnChange: true); // Explicitly load the config file
+builder.Configuration.AddJsonFile("./Startup/Configs/appsettings.json", optional: false, reloadOnChange: true); // Explicitly load the config file
 
 builder.Services
         
@@ -34,21 +34,22 @@ builder.Services
     {
         configuration.OverrideDefaultResultFactoryWith<ProblemDetails>();
     })
-    .AddSwaggerExamplesFromAssemblyOf<CommentDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreateCommentDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedCommentDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<ForumDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreateForumDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedForumDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<PostDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreatePostDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedPostDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<ListForumDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<ListCommentDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<ListPostDtoExample>();
+    .AddSwaggerExamplesFromAssemblyOf<ListPartDto>()
+    .AddSwaggerExamplesFromAssemblyOf<ListServerDto>()
+    .AddSwaggerExamplesFromAssemblyOf<ListCategoryDto>()
+    .AddSwaggerExamplesFromAssemblyOf<CategoryDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<ServerDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<PartDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<CreatePartDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<CreateServerDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<CreateCategoryDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<UpdatedCategoryDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<UpdatedServerDtoExample>()
+    .AddSwaggerExamplesFromAssemblyOf<UpdatedPartDtoExample>();
 
 
 var app = builder.Build();
+
 
 
 
@@ -83,7 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 
-app.AddPostApi();
-app.AddForumApi();
-app.AddCommentApi();
+app.AddServerApi();
+app.AddCategoryApi();
+app.AddPartApi();
 app.Run();

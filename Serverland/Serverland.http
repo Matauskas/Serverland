@@ -1,0 +1,6 @@
+@Serverland_HostAddress = http://localhost:5266
+
+GET {{Serverland_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

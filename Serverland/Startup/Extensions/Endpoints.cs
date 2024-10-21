@@ -7,35 +7,37 @@ using Serverland.Data.Entities;
 using Serverland.Examples;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
+using System.Xml;
 namespace Serverland.Extensions;
+
 
 public static class Endpoints
 {
     public static void AddCategoryApi(this WebApplication app)
     {
-        var categoryGroups = app.MapGroup("/api").AddFluentValidationAutoValidation().WithTags("Categories");
+        var categoryGroups = app.MapGroup("/api").AddFluentValidationAutoValidation().WithTags("category");
         
-        forumsGroups.MapGet("/category", async (ServerDbContext dbContext) =>
+        categoryGroups.MapGet("/category", async (ServerDbContext dbContext) =>
         {
             return (await dbContext.Categories.ToListAsync()).Select(category => category.ToDto());
         })
         .WithName("getAllCategories")
         .WithMetadata(new SwaggerOperationAttribute("Get a list of categories", "A list of categories"))
-        .Produces<List<CategoryDTO>>(StatusCodes.Status200OK);
+        .Produces<List<CategoryDto>>(StatusCodes.Status200OK);
 
-        forumsGroups.MapGet("/category/{categoryId}", async (int categoryId, ServerDbContext dbContext) =>
+        categoryGroups.MapGet("/category/{categoryId}", async (int categoryId, ServerDbContext dbContext) =>
         {
-            var category = await dbContext.Categories.FindAsync(categoryIdId);
+            var category = await dbContext.Categories.FindAsync(categoryId);
             return category == null ? Results.NotFound() : TypedResults.Ok(category.ToDto());
         })
         .WithName("getCategory")
         .WithMetadata(new SwaggerOperationAttribute("Get a caterogy by id", "Returns a category based on the provided ID."))
-        .Produces<CategoryDTO>(StatusCodes.Status200OK)
+        .Produces<CategoryDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        forumsGroups.MapPost("/category", async (CreateCategoryDto dto, ServerDbContext dbContext) =>
+        categoryGroups.MapPost("/category", async (CreateCategoryDto dto, ServerDbContext dbContext) =>
         {
-            var category = new Category{Manifacturer = dto.Manifacturer, ServerType = dto.ServerType};
+            var category = new Category{Manifacturer = dto.manifacturer, ServerType = dto.serverType};
             dbContext.Categories.Add(category);
             await dbContext.SaveChangesAsync();
 
@@ -43,10 +45,10 @@ public static class Endpoints
         })
         .WithName("createCategory")
         .WithMetadata(new SwaggerOperationAttribute("Create category", "Creates a new category with the given data and returns the created post."))
-        .Produces<CategoryDTO>(StatusCodes.Status201Created)
+        .Produces<CategoryDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        forumsGroups.MapPut("/category/{categoryId}", async (int categoryId, UpdatedCategoryDto dto, ServerDbContext dbContext) =>
+        categoryGroups.MapPut("/category/{categoryId}", async (int categoryId, UpdatedCategoryDto dto, ServerDbContext dbContext) =>
             {
                 var category = await dbContext.Categories.FindAsync(categoryId);
                 if (category == null)
@@ -69,7 +71,7 @@ public static class Endpoints
             .Produces(StatusCodes.Status404NotFound);
 
 
-        forumsGroups.MapDelete("/category/{categoryId}", async (int categoryId, ServerDbContext dbContext) =>
+        categoryGroups.MapDelete("/category/{categoryId}", async (int categoryId, ServerDbContext dbContext) =>
         {
             var category = await dbContext.Categories.FindAsync(categoryId);
             if (category == null)
@@ -89,66 +91,66 @@ public static class Endpoints
     }
     
     
-    public static void AddPostApi(this WebApplication app)
+    public static void AddServerApi(this WebApplication app)
     {
-        var postsGroups = app.MapGroup("/api/forums/{forumId}").AddFluentValidationAutoValidation().WithTags("Posts");
+        var serverGroups = app.MapGroup("/api/category/{categoryId}").AddFluentValidationAutoValidation().WithTags("server");
         
-        postsGroups.MapGet("/posts", async (int forumId, SttpDbContext dbContext) =>
+        serverGroups.MapGet("/server", async (int categoryId, ServerDbContext dbContext) =>
         { 
-            var forum = await dbContext.Forums.FindAsync(forumId);
+            var forum = await dbContext.Servers.FindAsync(categoryId);
            if (forum == null)
            {
                 return Results.NotFound();
            }
-           return Results.Ok((await dbContext.Posts.ToListAsync())
-               .Where(post => forumId == post.ForumId)
+           return Results.Ok((await dbContext.Servers.ToListAsync())
+               .Where(post => categoryId == post.categoryId)
                .Select(post => post.ToDto()));
         })
         .WithName("GetAllPosts")
         .WithMetadata(new SwaggerOperationAttribute("Get All Posts", "Returns a list of all posts."))
-        .Produces<List<PostDto>>(StatusCodes.Status200OK)
+        .Produces<List<ServerDto>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        postsGroups.MapGet("/posts/{postId}", async (int forumId, int postId, SttpDbContext dbContext) =>
+        serverGroups.MapGet("/server/{serverId}", async (int categoryId, int serverId, ServerDbContext dbContext) =>
         {
-            var post = await dbContext.Posts.FindAsync(postId);
-            return post == null || post.ForumId != forumId ? Results.NotFound() : TypedResults.Ok(post.ToDto());
+            var post = await dbContext.Servers.FindAsync(serverId);
+            return post == null || post.categoryId != categoryId ? Results.NotFound() : TypedResults.Ok(post.ToDto());
         })
         .WithName("GetPostById")
         .WithMetadata(new SwaggerOperationAttribute("Get Post by ID", "Returns a post based on the provided ID."))
-        .Produces<PostDto>(StatusCodes.Status200OK)
+        .Produces<ServerDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        postsGroups.MapPost("/posts", async (int forumId, CreatePostDto dto, SttpDbContext dbContext) => 
+        serverGroups.MapPost("/server", async (int categoryId, CreateServerDto dto, ServerDbContext dbContext) => 
             { 
-                var forum = await dbContext.Forums.FindAsync(forumId);
+                var forum = await dbContext.Categories.FindAsync(categoryId);
                 if (forum == null)
                 {
                     return Results.NotFound();
                 }
-            var post = new Post{Title = dto.Title, ForumId = forumId, Description = dto.Description, CreatedAt = DateTimeOffset.UtcNow};
-            dbContext.Posts.Add(post);
+            var server = new Server{Model = dto.model, categoryId = categoryId, Disk_Count = dto.disk_count, Generation = dto.generation, Weight = dto.weight, OS = dto.os};
+            dbContext.Servers.Add(server);
 
             await dbContext.SaveChangesAsync();
 
-            return TypedResults.Created($"api/forums/{forumId}/posts/{post.Id}", post.ToDto());
+            return TypedResults.Created($"api/category/{categoryId}/server/{server.Id}", server.ToDto());
         })
-        .WithName("CreatePost")
+        .WithName("CreateServer")
         .WithMetadata(new SwaggerOperationAttribute("Create a new post", "Creates a new post with the given data and returns the created post."))
-        .Produces<PostDto>(StatusCodes.Status201Created)
+        .Produces<ServerDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        postsGroups.MapPut("/posts/{postId}", async (int forumId, UpdatedPostDto dto, int postId, SttpDbContext dbContext) =>
+        serverGroups.MapPut("/server/{serverId}", async (int categoryId, UpdatedServerDto dto, int serverId, ServerDbContext dbContext) =>
         {
-            var post = await dbContext.Posts.FindAsync(postId);
-            if (post == null || post.ForumId != forumId )
+            var post = await dbContext.Servers.FindAsync(serverId);
+            if (post == null || post.categoryId != categoryId )
             {
                 return Results.NotFound();
             }
 
-            post.Description = dto.description;
+            post.Model = dto.model;
 
-            dbContext.Posts.Update(post);
+            dbContext.Servers.Update(post);
             await dbContext.SaveChangesAsync();
     
             return TypedResults.Ok(post.ToDto());
@@ -156,19 +158,19 @@ public static class Endpoints
         })
         .WithName("UpdatePost")
         .WithMetadata(new SwaggerOperationAttribute("Update an existing post", "Updates the description of an existing post with the given ID."))
-        .Produces<PostDto>(StatusCodes.Status200OK)
+        .Produces<ServerDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        postsGroups.MapDelete("/posts/{postId}", async (int forumId, int postId, SttpDbContext dbContext) =>
+        serverGroups.MapDelete("/server/{serverId}", async (int categoryId, int serverId, ServerDbContext dbContext) =>
         {
-            var post = await dbContext.Posts.FindAsync(postId);
-            if (post == null || post.ForumId != forumId)
+            var post = await dbContext.Servers.FindAsync(serverId);
+            if (post == null || post.categoryId != categoryId)
             {
                 return Results.NotFound();
             }
     
-            dbContext.Posts.Remove(post);
+            dbContext.Servers.Remove(post);
             await dbContext.SaveChangesAsync();
     
             return TypedResults.NoContent();
@@ -179,97 +181,98 @@ public static class Endpoints
         .Produces(StatusCodes.Status404NotFound);
     }
 
-    public static void AddCommentApi(this WebApplication app)
+    public static void AddPartApi(this WebApplication app)
     {
-        var commentsGroups = app.MapGroup("/api/forums/{forumId}/posts/{postId}").AddFluentValidationAutoValidation()
-            .WithTags("Comments");
+        var commentsGroups = app.MapGroup("/api/category/{categoryId}/server/{serverId}").AddFluentValidationAutoValidation()
+            .WithTags("part");
 
-        commentsGroups.MapGet("/comments", async (int forumId, int postId, SttpDbContext dbContext) =>
+        commentsGroups.MapGet("/part", async (int serverId, int categoryId, ServerDbContext dbContext) =>
         {
-            var forum = await dbContext.Forums.FindAsync(forumId);
-            var post = await dbContext.Posts.FindAsync(postId);
+            var forum = await dbContext.Categories.FindAsync(categoryId);
+            var post = await dbContext.Servers.FindAsync(serverId);
             if (forum == null|| post == null)
             {
                 return Results.NotFound();
             }
-            return Results.Ok((await dbContext.Comments.ToListAsync())
-                .Where(comment =>  postId == comment.PostId)
+            return Results.Ok((await dbContext.Parts.ToListAsync())
+                .Where(comment =>  serverId == comment.serverId)
                 .Select(comment => comment.ToDto()));
         })
-        .WithName("GetAllcomments")
-        .WithMetadata(new SwaggerOperationAttribute("Get All comment", "Returns a list of all comments."))
-        .Produces<List<CommentDto>>(StatusCodes.Status200OK)
+        .WithName("GetAllparts")
+        .WithMetadata(new SwaggerOperationAttribute("Get All parts", "Returns a list of all comments."))
+        .Produces<List<PartDto>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        commentsGroups.MapGet("/comments/{commentId}", async (int commentId, int forumId, int postId, SttpDbContext dbContext) =>
+        commentsGroups.MapGet("/part/{partId}", async (int partId, int categoryId, int serverId, ServerDbContext dbContext) =>
         {
-            var comment = await dbContext.Comments.FindAsync(commentId);
-            return comment == null || comment.PostId != postId ? Results.NotFound() : TypedResults.Ok(comment.ToDto());
+            var comment = await dbContext.Parts.FindAsync(partId);
+            return comment == null || comment.serverId != serverId ? Results.NotFound() : TypedResults.Ok(comment.ToDto());
         })
         .WithName("GetCommentById")
         .WithMetadata(new SwaggerOperationAttribute("Get comment by ID", "Returns a comment based on the provided ID."))
-        .Produces<CommentDto>(StatusCodes.Status200OK)
+        .Produces<PartDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        commentsGroups.MapPost("/comments/", async (int postId, int forumId, CreateCommentDto dto, SttpDbContext dbContext) => 
+        commentsGroups.MapPost("/part/", async (int serverId, int categoryId, CreatePartDto dto, ServerDbContext dbContext) => 
             { 
-                var post = await dbContext.Posts.FindAsync(postId);
+                var post = await dbContext.Servers.FindAsync(serverId);
                 if (post == null)
                 {
                     return Results.NotFound();
                 }
-            var comment = new Comment{ PostId = postId, Description = dto.Description, CreatedAt = DateTimeOffset.UtcNow};
-            dbContext.Comments.Add(comment);
+            var comment = new Part{CPU = dto.cpu, RAM = dto.ram, Raid = dto.raid, Network = dto.network, SSD = dto.ssd, HDD = dto.hdd, PSU = dto.psu, Rails = dto.rails, serverId = dto.serverId};
+            dbContext.Parts.Add(comment);
 
             await dbContext.SaveChangesAsync();
 
-            return TypedResults.Created($"api/forums/{forumId}/posts/{postId}/comments/{comment.Id}", comment.ToDto());
+            return TypedResults.Created($"api/category/{categoryId}/server/{serverId}/part/{comment.Id}", comment.ToDto());
         })
         .WithName("CreateComment")
         .WithMetadata(new SwaggerOperationAttribute("Create a new comment", "Creates a new comment with the given data and returns the created comment."))
-        .Produces<CommentDto>(StatusCodes.Status201Created)
+        .Produces<PartDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        commentsGroups.MapPut("/comments/{commentId}", async (int commentId, int forumId, UpdatedCommentDto dto, int postId, SttpDbContext dbContext) =>
+        commentsGroups.MapPut("/part/{partId}", async (int partId, int categoryId, UpdatedPartDto dto, int serverId, ServerDbContext dbContext) =>
         {
-            var comment = await dbContext.Comments.FindAsync(commentId);
-            if (comment == null || comment.PostId != postId )
+            var comment = await dbContext.Parts.FindAsync(partId);
+            if (comment == null || comment.serverId != serverId )
             {
                 return Results.NotFound();
             }
 
-            comment.Description = dto.description;
+            comment.CPU = dto.CPU;
 
-            dbContext.Comments.Update(comment);
+            dbContext.Parts.Update(comment);
             await dbContext.SaveChangesAsync();
     
             return TypedResults.Ok(comment.ToDto());
 
         })
-        .Accepts<UpdatedCommentDto>("application/json")
+        .Accepts<UpdatedPartDto>("application/json")
         .WithName("UpdateComment")
         .WithMetadata(new SwaggerOperationAttribute("Update an existing comment", "Updates the description of an existing comment with the given ID."))
-        .Produces<CommentDto>(StatusCodes.Status200OK)
+        .Produces<PartDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status422UnprocessableEntity)
         ;
 
-        commentsGroups.MapDelete("/comments/{commentId}", async (int commentId, int forumId, int postId, SttpDbContext dbContext) =>
+        commentsGroups.MapDelete("/part/{partId}", async (int partId, int categoryId, int serverId, ServerDbContext dbContext) =>
         {
-            var comment = await dbContext.Comments.FindAsync(commentId);
-            if (comment == null || comment.PostId != postId)
+            var comment = await dbContext.Parts.FindAsync(partId);
+            if (comment == null || comment.serverId != serverId)
             {
                 return Results.NotFound();
             }
     
-            dbContext.Comments.Remove(comment);
+            dbContext.Parts.Remove(comment);
             await dbContext.SaveChangesAsync();
     
             return TypedResults.NoContent();
         })
-        .WithName("DeleteComment")
+        .WithName("DeletePart")
         .WithMetadata(new SwaggerOperationAttribute("Delete a comment", "Deletes the comment with the given ID."))
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
     }
 }
+

@@ -1,4 +1,5 @@
 namespace Serverland.Data.Entities;
+using Serverland.Data.DatabaseObjects;
 
 public class Server
 {
@@ -9,4 +10,11 @@ public class Server
     public required double Weight { get; set; }
     public required bool OS { get; set; }
     public int categoryId { get; set; }
+
+
+
+    public ServerDto ToDto()
+    {
+        return new ServerDto(Id, Model, Disk_Count, Generation, Weight, OS, categoryId);
+    }
 }
