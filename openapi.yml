@@ -1,0 +1,585 @@
+openapi: '3.0.3'
+info:
+  title: SERVERLAND
+  version: '1.0'
+servers:
+  - url: https://api.server.test/v1
+paths:
+#======================================================================     CATEGORY     ==================================================================
+  /category:
+    get:
+      summary: Get a list of categories
+      tags:
+        - category
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/category"
+              example:
+                - id: 1
+                  manufacturer: "Dell"
+                  type: "Tower"
+                - id: 2
+                  manufacturer: "HPE"
+                  type: "Rack"
+    post:
+      summary: Create category
+      description: "Create category"
+      tags:
+        - category
+      operationId: createCategory
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createCategory"
+            example:
+            - manifacturer: "Dell"
+              serverType: "Rack"
+      responses:
+        "201":
+          $ref: "#/components/responses/singleCategory"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+
+  /category/{categoryId}:
+    parameters:
+      - $ref: "#/components/parameters/categoryId"
+    get:
+      summary: Get a caterogy by id
+      tags:
+        - category
+      operationId: getCategory
+      responses:
+        "200":
+          $ref: "#/components/responses/singleCategory"
+        "404":
+          $ref: "#/components/responses/notFound"
+    put:
+      summary: Update category by id
+      tags:
+        - category
+      operationId: updateCategory
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/updateCategory"
+            example:
+              - manifacturer: "IBM"
+      responses:
+        "200":
+          $ref: "#/components/responses/singleCategory"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+    delete:
+      summary: Delete a category by ID
+      tags:
+        - category
+      operationId: deleteCategory
+      responses:
+        "404":
+          $ref: "#/components/responses/notFound"
+        "204":
+          description: Category deleted
+#======================================================================   SERVER    ==================================================================
+  /category/{categoryId}/server:
+    parameters:
+      - $ref: "#/components/parameters/categoryId"
+    get:
+      summary: Get a list of servers by category id
+      tags:
+        - server
+      operationId: getAllServers
+      responses:
+        '200':
+          description: A list of server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/server"
+              example:
+                - id: 1
+                  Model: "PowerEdge R740xd"
+                  disk_count: "16"
+                  generation: "14th"
+                  weight: 45.25
+                  os: true
+                - id: 2
+                  Model: "HPE ProLiant DL380"
+                  disk_count: "8"
+                  generation: "11th"
+                  os: false
+    post:
+      summary: Create server
+      description: "Create server"
+      tags:
+        - server
+      operationId: createServer
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createServer"
+            example:
+            - model: "HPE ProLiant DL380"
+              disk_count: "8"
+              generation: "11th"
+              os: false
+      responses:
+        "201":
+          $ref: "#/components/responses/singleServer"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+  /category/{categoryId}/server/{serverId}:
+    parameters:
+      - $ref: '#/components/parameters/categoryId'
+      - $ref: '#/components/parameters/serverId'
+    get:
+      summary: Get a server by id
+      tags:
+        - server
+      operationId: getServer
+      responses:
+        "200":
+          $ref: "#/components/responses/singleServer"
+        "404":
+          $ref: "#/components/responses/notFound"
+    put:
+      summary: Update server by id
+      tags:
+        - server
+      operationId: updateServer
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/updateServer"
+            example:
+              - weight: 50.25
+      responses:
+        "200":
+          $ref: "#/components/responses/singleServer"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+    delete:
+      summary: Delete a server by ID
+      tags:
+        - server
+      operationId: deleteServer
+      responses:
+        "404":
+          $ref: "#/components/responses/notFound"
+        "204":
+          description: Server deleted
+#======================================================================    PARTS     ==================================================================
+  /category/{categoryId}/server/{serverId}/part:
+    parameters:
+      - $ref: '#/components/parameters/categoryId'
+      - $ref: '#/components/parameters/serverId'
+    get:
+      summary: Get a list of parts  by server id
+      tags:
+        - part
+      operationId: getAllParts
+      responses:
+        '200':
+          description: A list of server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/part"
+              example:
+                - id: 1
+                  cpu: "2 x Intel Xeon Gold 6564"
+                  ram: "8 x 32GB DDR4 3200MHz"
+                  raid: "H740"
+                  network: "FLR360"
+                  ssd: "3 x 1.8TB SSD"
+                  hdd: "2 x 2TB"
+                  psu: "1100W"
+                  rails: false
+                - id: 2
+                  cpu: "2 x Intel Xeon Gold 6564"
+                  ram: "8 x 32GB DDR4 3200MHz"
+                  raid: "H740"
+                  network: "FLR360"
+                  psu: "1100W"
+                  rails: true
+    post:
+      summary: Create part
+      description: "Create part"
+      tags:
+        - part
+      operationId: createParts
+      requestBody: 
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createParts"
+            example:
+            - cpu: "2 x Intel Xeon Gold 6564"
+              ram: "8 x 32GB DDR4 3200MHz"
+              raid: "H740"
+              network: "FLR360"
+              psu: "1100W"
+              rails: true
+      responses:
+        "201":
+          $ref: "#/components/responses/singlePart"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+  /category/{categoryId}/server/{serverId}/part/{partId}:
+    parameters:
+      - $ref: '#/components/parameters/categoryId'
+      - $ref: '#/components/parameters/serverId'
+      - $ref: '#/components/parameters/partId'
+    get:
+      summary: Get a part by  id
+      tags:
+        - part
+      operationId: getPart
+      responses:
+        "200":
+          $ref: "#/components/responses/singlePart"
+        "404":
+          $ref: "#/components/responses/notFound"
+    put:
+      summary: Update part by id
+      tags:
+        - part
+      operationId: updatePart
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/updatePart"
+            example:
+              - rails: true
+      responses:
+        "200":
+          $ref: "#/components/responses/singlePart"
+        "400":
+          $ref: "#/components/responses/badRequest"
+        "404":
+          $ref: "#/components/responses/notFound"
+        "422":
+          $ref: "#/components/responses/unprocessableEntity"
+    delete:
+      summary: Delete a part by ID
+      tags:
+        - part
+      operationId: deletePart
+      responses:
+        "404":
+          $ref: "#/components/responses/notFound"
+        "204":
+          description: Part deleted
+        
+
+
+# COMPONENTS
+
+components:
+  schemas:
+    category:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        manufacturer:
+          type: string
+          example: "Dell"
+        type:
+          type: string
+          example: "Tower"
+    server: 
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        model:
+          type: string
+          example: "PowerEdge R740"
+        disk_count: 
+          type: integer
+          example: 16
+        generation:
+          type: string
+          example: "14th"
+        weight:
+          type: number
+          example: 38.25
+        os:
+          type: boolean
+          example: true
+    part:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        cpu:
+          type: string
+          example: "2 x Intel xeon GOLD 6654"
+        ram: 
+          type: string
+          example: "8 x 16GB DDR4 2666MHz"
+        raid:
+          type: string
+          example: "H730p"
+        network:
+          type: string
+          example: "FLR331"
+        ssd:
+          type: string
+          example: "SAMSUNG 960GB SATA"
+        hdd:
+          type: string
+          example: "3TB"
+        psu:
+          type: string
+          example: "750W"
+        rails:
+          type: boolean
+          example: false
+    createCategory:
+      type: object
+      required:
+        - manifacturer
+        - serverType
+      properties:
+        manifacturer:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z]"
+          type: string
+        serverType:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z]"
+          type: string
+    createServer:
+      type: object
+      required:
+        - model
+        - disk_count
+        - generation
+        - os
+      properties:
+        model:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        disk_count:
+          type: integer
+        generation:
+          minLength: 0
+          maxLength: 10
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        os:
+          type: boolean
+    createParts:
+      type: object
+      required:
+        - cpu
+        - ram
+        - raid
+        - network
+        - psu
+        - rails
+      properties:
+        cpu:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        ram:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        raid:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        network:
+          minLength: 0
+          maxLength: 100
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        psu:
+          minLength: 0
+          maxLength: 15
+          pattern: "^[a-zA-Z0-9_]+$"
+          type: string
+        rails:
+          type: boolean  
+    updateCategory:
+      type: object
+      properties:
+        description:
+          type: string
+    updateServer:
+      type: object
+      properties:
+        description:
+          type: string
+    updatePart:
+      type: object
+      properties:
+        description:
+          type: string
+    problemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference that identifies the problem type.
+        title:
+          type: string
+          description: A short, human-readable summary of the problem type.
+        status:
+          type: integer
+          format: int32
+          description: The HTTP status code applicable to this problem.
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem.
+        instance:
+          type: string
+          format: uri
+          description: A URI reference that identifies the specific occurrence of the problem.
+        errors:
+          type: object
+          description: A map of detailed errors for every property ([property => error])
+  responses:
+    singleCategory:
+      description: A category
+      content:
+        application/json:
+          schema:
+            type: object
+            items:
+              $ref: "#/components/schemas/category"
+          example:
+            - id: 1
+              manifacturer: "DELL"
+              serverType: "Tower"
+    singleServer:
+      description: A server
+      content:
+        application/json:
+          schema:
+            type: object
+            items:
+              $ref: "#/components/schemas/server"
+          example:
+            - id: 1
+              Model: "PowerEdge R740xd"
+              disk_count: "16"
+              generation: "14th"
+              weight: 45.25
+              os: true
+    singlePart:
+      description: A part
+      content:
+        application/json:
+          schema:
+            type: object
+            items:
+              $ref: "#/components/schemas/part"
+          example:
+            - id: 1
+              cpu: "2 x Intel Xeon Gold 6564"
+              ram: "8 x 32GB DDR4 3200MHz"
+              raid: "H740"
+              network: "FLR360"
+              ssd: "3 x 1.8TB SSD"
+              hdd: "2 x 2TB"
+              psu: "1100W"
+              rails: false"
+    unprocessableEntity:
+      description: Unprocessable entity response
+      content:
+        application/problem+json:
+          schema:
+            type: object
+            items:
+              $ref: "#/components/schemas/problemDetails"
+          example:
+            type: "https://tools.ietf.org/html/rfc4918#section-11.2"
+            title: "Unprocessable Entity"
+            status: 422
+            errors:
+              Name:
+                - "'Name' must not be empty."
+    badRequest:
+      description: Bad request response
+    notFound:
+      description: Resource was not found
+
+  parameters:
+    categoryId:
+      name: categoryId
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: The unique identifier of the topic
+    serverId:
+      name: serverId
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: The unique identifier of the post
+    partId:
+      name: partId
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+      description: The unique identifier of the comment
+
+
+tags:
+  - name: category
+    description: Operations related to categories
+  - name: server
+    description: Operations related to servers
+  - name: part
+    description: Operations related to parts
