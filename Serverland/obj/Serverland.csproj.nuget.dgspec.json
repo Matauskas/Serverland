@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\Serverland.csproj": {}
+    "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\Serverland.csproj": {}
   },
   "projects": {
-    "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\Serverland.csproj": {
+    "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\Serverland.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\Serverland.csproj",
+        "projectUniqueName": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\Serverland.csproj",
         "projectName": "Serverland",
-        "projectPath": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\Serverland.csproj",
+        "projectPath": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\Serverland.csproj",
         "packagesPath": "C:\\Users\\matas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\obj\\",
+        "outputPath": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\matas\\AppData\\Roaming\\NuGet\\NuGet.Config",
