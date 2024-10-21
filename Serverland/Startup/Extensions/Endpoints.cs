@@ -123,11 +123,7 @@ public static class Endpoints
 
         serverGroups.MapPost("/server", async (int categoryId, CreateServerDto dto, ServerDbContext dbContext) => 
             { 
-                var forum = await dbContext.Categories.FindAsync(categoryId);
-                if (forum == null)
-                {
-                    return Results.NotFound();
-                }
+
             var server = new Server{Model = dto.model, categoryId = categoryId, Disk_Count = dto.disk_count, Generation = dto.generation, Weight = dto.weight, OS = dto.os};
             dbContext.Servers.Add(server);
 
@@ -199,7 +195,7 @@ public static class Endpoints
                 .Select(comment => comment.ToDto()));
         })
         .WithName("GetAllparts")
-        .WithMetadata(new SwaggerOperationAttribute("Get All parts", "Returns a list of all comments."))
+        .WithMetadata(new SwaggerOperationAttribute("Get All parts", "Returns a list of all parts."))
         .Produces<List<PartDto>>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
@@ -215,11 +211,6 @@ public static class Endpoints
 
         commentsGroups.MapPost("/part/", async (int serverId, int categoryId, CreatePartDto dto, ServerDbContext dbContext) => 
             { 
-                var post = await dbContext.Servers.FindAsync(serverId);
-                if (post == null)
-                {
-                    return Results.NotFound();
-                }
             var comment = new Part{CPU = dto.cpu, RAM = dto.ram, Raid = dto.raid, Network = dto.network, SSD = dto.ssd, HDD = dto.hdd, PSU = dto.psu, Rails = dto.rails, serverId = dto.serverId};
             dbContext.Parts.Add(comment);
 
