@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "f6U2B1cRN+Iskxj8CK/VaGZMeB2Sq9eXeKNBPMPYpJo=",
+  "Hash": "WVeAcffX6CtbLJEc2ebNFSCtZg5u02LU5gqk6mZSSCY=",
   "Source": "Serverland",
   "BasePath": "_content/Serverland",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Serverland\\wwwroot",
       "Source": "Serverland",
-      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\",
       "BasePath": "_content/Serverland",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\hacker_anonymous_icon_154428.ico",
+      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\hacker_anonymous_icon_154428.ico",
       "SourceId": "Serverland",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\",
       "BasePath": "_content/Serverland",
       "RelativePath": "hacker_anonymous_icon_154428.ico",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\hacker_anonymous_icon_154428.ico"
     },
     {
-      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\custom-index.html",
+      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\custom-index.html",
       "SourceId": "Serverland",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\",
       "BasePath": "_content/Serverland",
       "RelativePath": "swagger/custom-index.html",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\swagger\\custom-index.html"
     },
     {
-      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\favicon.ico",
+      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\favicon.ico",
       "SourceId": "Serverland",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\",
       "BasePath": "_content/Serverland",
       "RelativePath": "swagger/favicon.ico",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\swagger\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\style.css",
+      "Identity": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\style.css",
       "SourceId": "Serverland",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\",
       "BasePath": "_content/Serverland",
       "RelativePath": "swagger/style.css",
       "AssetKind": "All",

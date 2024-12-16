@@ -8,6 +8,10 @@ using Serverland.Examples;
 using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using System.Xml;
+using Serverland.Auth.Model;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 namespace Serverland.Extensions;
 
 
@@ -35,11 +39,15 @@ public static class Endpoints
         .Produces<CategoryDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        categoryGroups.MapPost("/category", async (CreateCategoryDto dto, ServerDbContext dbContext) =>
+        categoryGroups.MapPost("/category", [Authorize(Roles = ShopRoles.Admin)]async (CreateCategoryDto dto, ServerDbContext dbContext,HttpContext httpContext) =>
         {
-            var category = new Category{Manifacturer = dto.manifacturer, ServerType = dto.serverType};
+            var category = new Category{Manifacturer = dto.manifacturer, ServerType = dto.serverType, UserId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub)};
             dbContext.Categories.Add(category);
             await dbContext.SaveChangesAsync();
+            if (!httpContext.User.IsInRole(ShopRoles.ShopUser))
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
 
             return TypedResults.Created($"api/category/{category.Id}", category.ToDto());
         })
@@ -48,14 +56,17 @@ public static class Endpoints
         .Produces<CategoryDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        categoryGroups.MapPut("/category/{categoryId}", async (int categoryId, UpdatedCategoryDto dto, ServerDbContext dbContext) =>
+        categoryGroups.MapPut("/category/{categoryId}", [Authorize]async (int categoryId, UpdatedCategoryDto dto, ServerDbContext dbContext, HttpContext httpContext) =>
             {
                 var category = await dbContext.Categories.FindAsync(categoryId);
                 if (category == null)
                 {
                     return Results.NotFound();
                 }
-
+                if (!httpContext.User.IsInRole(ShopRoles.ShopUser))
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
                 category.Manifacturer = dto.manifacturer;
 
                 dbContext.Categories.Update(category);
@@ -71,14 +82,17 @@ public static class Endpoints
             .Produces(StatusCodes.Status404NotFound);
 
 
-        categoryGroups.MapDelete("/category/{categoryId}", async (int categoryId, ServerDbContext dbContext) =>
+        categoryGroups.MapDelete("/category/{categoryId}", [Authorize]async (int categoryId, ServerDbContext dbContext,HttpContext httpContext) =>
         {
             var category = await dbContext.Categories.FindAsync(categoryId);
             if (category == null)
             {
                 return Results.NotFound();
             }
-    
+            if (!httpContext.User.IsInRole(ShopRoles.ShopUser))
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
             dbContext.Categories.Remove(category);
             await dbContext.SaveChangesAsync();
     
@@ -121,10 +135,10 @@ public static class Endpoints
         .Produces<ServerDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        serverGroups.MapPost("/server", async (int categoryId, CreateServerDto dto, ServerDbContext dbContext) => 
+        serverGroups.MapPost("/server", [Authorize(Roles = ShopRoles.ShopUser)]async (int categoryId, CreateServerDto dto, ServerDbContext dbContext, HttpContext httpContext) => 
             { 
 
-            var server = new Server{Model = dto.model, categoryId = categoryId, Disk_Count = dto.disk_count, Generation = dto.generation, Weight = dto.weight, OS = dto.os};
+            var server = new Server{Model = dto.model, categoryId = categoryId, Disk_Count = dto.disk_count, Generation = dto.generation, Weight = dto.weight, OS = dto.os, UserId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub)};
             dbContext.Servers.Add(server);
 
             await dbContext.SaveChangesAsync();
@@ -136,14 +150,17 @@ public static class Endpoints
         .Produces<ServerDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        serverGroups.MapPut("/server/{serverId}", async (int categoryId, UpdatedServerDto dto, int serverId, ServerDbContext dbContext) =>
+        serverGroups.MapPut("/server/{serverId}", [Authorize]async (int categoryId, UpdatedServerDto dto, int serverId, ServerDbContext dbContext,HttpContext httpContext) =>
         {
             var post = await dbContext.Servers.FindAsync(serverId);
             if (post == null || post.categoryId != categoryId )
             {
                 return Results.NotFound();
             }
-
+            if (httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != post.UserId)
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
             post.Model = dto.model;
 
             dbContext.Servers.Update(post);
@@ -158,12 +175,16 @@ public static class Endpoints
         .Produces(StatusCodes.Status404NotFound)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        serverGroups.MapDelete("/server/{serverId}", async (int categoryId, int serverId, ServerDbContext dbContext) =>
+        serverGroups.MapDelete("/server/{serverId}", [Authorize]async (int categoryId, int serverId, ServerDbContext dbContext,HttpContext httpContext) =>
         {
             var post = await dbContext.Servers.FindAsync(serverId);
             if (post == null || post.categoryId != categoryId)
             {
                 return Results.NotFound();
+            }
+            if (httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != post.UserId)
+            {
+                    return Results.Forbid(); //.NotFound();
             }
     
             dbContext.Servers.Remove(post);
@@ -209,9 +230,9 @@ public static class Endpoints
         .Produces<PartDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
-        commentsGroups.MapPost("/part/", async (int serverId, int categoryId, CreatePartDto dto, ServerDbContext dbContext) => 
+        commentsGroups.MapPost("/part/", [Authorize(Roles = ShopRoles.ShopUser)]async (int serverId, int categoryId, CreatePartDto dto, ServerDbContext dbContext, HttpContext httpContext) => 
             { 
-            var comment = new Part{CPU = dto.cpu, RAM = dto.ram, Raid = dto.raid, Network = dto.network, SSD = dto.ssd, HDD = dto.hdd, PSU = dto.psu, Rails = dto.rails, serverId = dto.serverId};
+            var comment = new Part{CPU = dto.cpu, RAM = dto.ram, Raid = dto.raid, Network = dto.network, SSD = dto.ssd, HDD = dto.hdd, PSU = dto.psu, Rails = dto.rails, serverId = dto.serverId, UserId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub)};
             dbContext.Parts.Add(comment);
 
             await dbContext.SaveChangesAsync();
@@ -223,14 +244,17 @@ public static class Endpoints
         .Produces<PartDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status422UnprocessableEntity);
 
-        commentsGroups.MapPut("/part/{partId}", async (int partId, int categoryId, UpdatedPartDto dto, int serverId, ServerDbContext dbContext) =>
+        commentsGroups.MapPut("/part/{partId}", [Authorize]async (int partId, int categoryId, UpdatedPartDto dto, int serverId, ServerDbContext dbContext,HttpContext httpContext) =>
         {
             var comment = await dbContext.Parts.FindAsync(partId);
             if (comment == null || comment.serverId != serverId )
             {
                 return Results.NotFound();
             }
-
+            if (httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
             comment.CPU = dto.CPU;
 
             dbContext.Parts.Update(comment);
@@ -247,14 +271,17 @@ public static class Endpoints
         .Produces(StatusCodes.Status422UnprocessableEntity)
         ;
 
-        commentsGroups.MapDelete("/part/{partId}", async (int partId, int categoryId, int serverId, ServerDbContext dbContext) =>
+        commentsGroups.MapDelete("/part/{partId}", [Authorize]async (int partId, int categoryId, int serverId, ServerDbContext dbContext,HttpContext httpContext) =>
         {
             var comment = await dbContext.Parts.FindAsync(partId);
             if (comment == null || comment.serverId != serverId)
             {
                 return Results.NotFound();
             }
-    
+            if (httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub) != comment.UserId)
+            {
+                    return Results.Forbid(); //.NotFound();
+            }
             dbContext.Parts.Remove(comment);
             await dbContext.SaveChangesAsync();
     

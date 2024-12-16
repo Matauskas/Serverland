@@ -1,4 +1,6 @@
 namespace Serverland.Data.Entities;
+using Serverland.Auth.Model;
+using System.ComponentModel.DataAnnotations;
 using Serverland.Data.DatabaseObjects;
 public class Part
 {
@@ -12,7 +14,9 @@ public class Part
     public required string PSU { get; set; }
     public required bool Rails { get; set; }
     public int serverId { get; set; }
-
+    [Required]
+    public required string UserId { get; set; }
+     public ShopUser User { get; set; }
     public PartDto ToDto()
     {
         return new PartDto(Id, CPU, RAM,Raid,Network,SSD,HDD,PSU,Rails,serverId);
