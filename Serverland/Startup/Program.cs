@@ -22,11 +22,20 @@ using Serverland.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.SetBasePath(builder.Environment.ContentRootPath); // Ensure the base path is correct
-builder.Configuration.AddJsonFile("./Startup/Configs/appsettings.json", optional: false, reloadOnChange: true); // Explicitly load the config file
+builder.Configuration.SetBasePath(builder.Environment.ContentRootPath);
+builder.Configuration.AddJsonFile("./Startup/Configs/appsettings.json", optional: false, reloadOnChange: true);
 
 builder.Services
-
+    .AddCors(options =>
+    {
+        options.AddPolicy("AllowLocalhost3000", policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader()
+                  .AllowCredentials();
+        });
+    })
     .AddEndpointsApiExplorer()
     .AddSwaggerGen(c =>
     {
@@ -42,18 +51,6 @@ builder.Services
     {
         configuration.OverrideDefaultResultFactoryWith<ProblemDetails>();
     })
-    .AddSwaggerExamplesFromAssemblyOf<ListPartDto>()
-    .AddSwaggerExamplesFromAssemblyOf<ListServerDto>()
-    .AddSwaggerExamplesFromAssemblyOf<ListCategoryDto>()
-    .AddSwaggerExamplesFromAssemblyOf<CategoryDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<ServerDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<PartDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreatePartDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreateServerDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<CreateCategoryDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedCategoryDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedServerDtoExample>()
-    .AddSwaggerExamplesFromAssemblyOf<UpdatedPartDtoExample>()
     .AddIdentity<ShopUser, IdentityRole>(options =>
     {
         options.Password.RequireDigit = false;
@@ -66,45 +63,42 @@ builder.Services
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    }).AddJwtBearer(options =>
-    {
-        options.MapInboundClaims = false;
-        options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:ValidAudience"];
-        options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:ValidIssuer"];
-        options.TokenValidationParameters.IssuerSigningKey =
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]));
-    });
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.MapInboundClaims = false;
+    options.TokenValidationParameters.ValidAudience = builder.Configuration["Jwt:ValidAudience"];
+    options.TokenValidationParameters.ValidIssuer = builder.Configuration["Jwt:ValidIssuer"];
+    options.TokenValidationParameters.IssuerSigningKey =
+        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]));
+});
 
-
- builder.Services
-        .AddAuthorization()
-        .AddScoped<AuthSeeder>()
-        .AddTransient<JwtTokenService>()
-        .AddTransient<SessionService>();
+builder.Services
+    .AddAuthorization()
+    .AddScoped<AuthSeeder>()
+    .AddTransient<JwtTokenService>()
+    .AddTransient<SessionService>();
 
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
-//var dbContext = scope.ServiceProvider.GetRequiredService<ServerDbContext>();
 var dbSeeder = scope.ServiceProvider.GetRequiredService<AuthSeeder>();
 await dbSeeder.SeedAsync();
 
 app.AddAuthApi();
 app.UseHttpsRedirection();
-app.UseStaticFiles(); 
+app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowLocalhost3000"); // Use the defined CORS policy here
+app.UseAuthentication();
+app.UseAuthorization();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(c =>
-    {
-        //c.RouteTemplate = "api-docs/{documentName}/swagger.json";
-    });
+    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         var executingAssembly = Assembly.GetExecutingAssembly();
@@ -116,18 +110,14 @@ if (app.Environment.IsDevelopment())
         c.DefaultModelsExpandDepth(-1);
         c.DocExpansion(DocExpansion.List);
         c.MaxDisplayedTags(5);
-
         c.DisplayOperationId();
         c.DisplayRequestDuration();
         c.DefaultModelRendering(ModelRendering.Example);
         c.ShowExtensions();
     });
 }
-app.UseHttpsRedirection();
 
 app.AddServerApi();
 app.AddCategoryApi();
 app.AddPartApi();
-app.UseAuthentication();
-app.UseAuthorization();
 app.Run();

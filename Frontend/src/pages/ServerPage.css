@@ -1,0 +1,185 @@
+/* Base colors from Palette 3 */
+:root {
+    --light-blue: #74b9ff;
+    --green: #55efc4;
+    --dark-blue: #2d3436;
+    --light-gray: #f9f9f9;
+    --dark-gray: #333;
+    --hover-light-blue: #5fa8e0;
+    --hover-dark-blue: #1f262a;
+    --hover-green: #40e1a1;
+  }
+  
+  /* General modal styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .modal-actions button {
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+  
+  .modal-actions button:first-child {
+    background-color: var(--green);
+    color: white;
+  }
+  
+  .modal-actions button:last-child {
+    background-color: var(--dark-blue);
+    color: white;
+  }
+  
+  /* Server page specific styles */
+  .servers-page {
+    text-align: center;
+  }
+  
+  .servers-page h2 {
+    color: var(--dark-blue);
+  }
+  
+  .create-new-button {
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .create-new-button:hover {
+    background-color: var(--hover-green);
+  }
+  
+  .server-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .server-item {
+    border: 1px solid #ddd;
+    padding: 16px;
+    background-color: var(--light-gray);
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .server-item:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .server-item h3 {
+    margin-bottom: 10px;
+  }
+  
+  .server-item p {
+    margin: 5px 0;
+  }
+  
+  /* Edit/Delete buttons inside each server item */
+  .server-item button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .server-item button:first-child {
+    background-color: var(--light-blue);
+    color: white;
+    border: none;
+  }
+  
+  .server-item button:first-child:hover {
+    background-color: var(--hover-light-blue);
+  }
+  
+  .server-item button:last-child {
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+  }
+  
+  .server-item button:last-child:hover {
+    background-color: var(--hover-dark-blue);
+  }
+  
+  /* Modal content styles */
+  .modal-content label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .modal-content input,
+  .modal-content textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  /* Specific server modal input field */
+  .modal-content input[type="number"] {
+    width: calc(50% - 10px);
+    margin-right: 10px;
+  }
+  
+  .modal-content input[type="text"] {
+    width: calc(50% - 10px);
+  }
+  
+  /* Additional style adjustments for layout */
+  .server-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .server-item button {
+    margin-top: 15px;
+    align-self: flex-start;
+  }
+  
+  h2 {
+    color: var(--dark-blue);
+  }
+  
+  p {
+    color: var(--dark-blue);
+  }
+  
+  h3 {
+    color: var(--dark-blue);
+  }
+  

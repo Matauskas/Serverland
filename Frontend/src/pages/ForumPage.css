@@ -1,0 +1,247 @@
+/* Base colors from Palette 3 */
+:root {
+  --light-blue: #74b9ff;
+  --green: #55efc4;
+  --dark-blue: #2d3436;
+  --light-gray: #f9f9f9;
+  --dark-gray: #333;
+  --hover-light-blue: #5fa8e0;
+  --hover-dark-blue: #1f262a;
+  --hover-green: #40e1a1;
+}
+
+/* General modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.modal-actions button:first-child {
+  background-color: var(--green);
+  color: white;
+}
+
+.modal-actions button:last-child {
+  background-color: var(--dark-blue);
+  color: white;
+}
+
+/* Category list styles */
+.category-list {
+  text-align: center;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-item {
+  border: 1px solid #ddd;
+  padding: 16px;
+  background-color: var(--light-gray);
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.category-item:hover {
+  background-color: #e9e9e9;
+}
+
+.category-header h3,
+.category-header p {
+  margin: 0;
+}
+
+.category-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.edit-button,
+.delete-button,
+.create-new-button button {
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.edit-button {
+  background-color: var(--light-blue);
+  color: white;
+  border: none;
+}
+
+.edit-button:hover {
+  background-color: var(--hover-light-blue);
+}
+
+.delete-button {
+  background-color: var(--dark-blue);
+  color: white;
+  border: none;
+}
+
+.delete-button:hover {
+  background-color: var(--hover-dark-blue);
+}
+
+/* Create New Button */
+.create-new-button button {
+  background-color: var(--green);
+  color: white;
+  border: none;
+}
+
+.create-new-button button:hover {
+  background-color: var(--hover-green);
+}
+
+/* Modal content styles */
+.modal-content label {
+  display: block;
+  margin-top: 10px;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Forum item styles */
+.forum-item {
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin: 10px 0;
+  position: relative;
+  background-color: var(--light-gray);
+  transition: background-color 0.3s ease;
+}
+
+.forum-item:hover {
+  background-color: #e9e9e9;
+}
+
+.created-date {
+  font-size: 0.8em;
+  color: blue;
+  text-align: right;
+}
+
+.forum-actions {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.forum-item:hover .forum-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Button styles for forum actions */
+.edit-button {
+  background-color: var(--light-blue);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.edit-button:hover {
+  background-color: var(--hover-light-blue);
+}
+
+.delete-button {
+  background-color: var(--dark-blue);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  background-color: var(--hover-dark-blue);
+}
+
+/* Category creation modal styles */
+.create-new-button {
+  margin-bottom: 20px;
+  max-width: 150px;
+  margin-right: 30px;
+  margin-left: auto;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-item {
+  border: 1px solid #ddd;
+  padding: 16px;
+  background-color: var(--light-gray);
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+.category-item:hover {
+  background-color: #e9e9e9;
+}
+
+h2 {
+  color: var(--dark-blue);
+}
+
+p {
+  color: var(--dark-blue);
+}

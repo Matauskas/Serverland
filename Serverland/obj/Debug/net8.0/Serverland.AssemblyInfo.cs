@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Serverland")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+96134a4c1afa5bfbbf736b22261d82e5498588a9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46efdfc92f789bc4e69a3237930d14b444fff814")]
 [assembly: System.Reflection.AssemblyProductAttribute("Serverland")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Serverland")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

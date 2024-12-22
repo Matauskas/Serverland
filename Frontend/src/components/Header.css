@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4fa3a1; /* Lighter Deep Teal background */
+  padding: 1rem;
+}
+
+/* Title container to align image and text */
+.title-container {
+  display: flex;
+  align-items: center; /* Ensure items are aligned horizontally */
+  gap: 1rem; /* Space between image and title */
+  background-color: #4fa3a1; /* Lighter Deep Teal background */
+  padding: 0.5rem;
+}
+
+.title {
+  font-family: 'Lobster', cursive;
+  color: #f0f0f0; /* Light Gray text */
+  font-size: 2rem; /* Adjust font size for visibility */
+  margin: 0; /* Ensure no unexpected margins */
+}
+
+.logo {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: cover;
+}

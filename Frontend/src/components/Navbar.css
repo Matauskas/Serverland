@@ -1,0 +1,114 @@
+/* General navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #007f7f; /* Deep Teal background */
+  color: #f0f0f0; /* Light Gray text */
+}
+
+/* Styling for the menu links */
+.nav-item-link {
+  color: #f0f0f0; /* Light Gray text for links */
+}
+
+/* Hamburger menu button (visible only on mobile) */
+.menu-toggle {
+  display: none; /* Will be displayed only on mobile */
+}
+
+/* Logout button styling */
+.logout-button {
+  padding: 5px 10px;
+  background-color: #ff6f61; /* Soft Coral background */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #ff3e2d; /* Darker Soft Coral on hover */
+}
+
+/* Menu items */
+.menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+/* Auth section styling */
+.auth-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Ensures that the username and logout button appear in the same row */
+}
+
+/* On desktop, push the auth section to the right */
+.auth-section.ml-auto {
+  margin-left: auto; /* Push to the right */
+}
+
+/* Username styling */
+.username {
+  font-size: 14px;
+  color: #f0f0f0; /* Light Gray for username */
+}
+
+@media (min-width: 769px) {
+  .nav-item {
+    color: #f0f0f0; /* Light Gray */
+    border: 1px solid #f0f0f0; /* Light Gray border */
+    padding: 10px; /* Adds spacing between the items */
+    display: inline-block; /* Ensures items are aligned in a row */
+  }
+
+  .auth-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .auth-section.ml-auto {
+    margin-left: auto; /* Push to the right */
+  }
+
+  /* Username styling */
+  .username {
+    font-size: 14px;
+    color: #f0f0f0; /* Light Gray */
+  }
+}
+
+/* On mobile, display the hamburger menu and adjust auth section layout */
+@media (max-width: 768px) {
+  .nav-item {
+    color: #f0f0f0; /* Light Gray */
+  }
+
+  .menu-toggle {
+    display: block; /* Display hamburger button on mobile */
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .menu.block {
+    display: block; /* Show menu when open */
+  }
+
+  /* Style the auth section to be in a row, just like on desktop */
+  .auth-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px; /* Ensure it's aligned properly under the menu */
+  }
+}

@@ -1,19 +1,19 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\hacker_anonymous_icon_154428.ico",
+      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\hacker_anonymous_icon_154428.ico",
       "PackagePath": "staticwebassets\\hacker_anonymous_icon_154428.ico"
     },
     {
-      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\custom-index.html",
+      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\custom-index.html",
       "PackagePath": "staticwebassets\\swagger\\custom-index.html"
     },
     {
-      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\favicon.ico",
+      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\favicon.ico",
       "PackagePath": "staticwebassets\\swagger\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\wwwroot\\swagger\\style.css",
+      "Id": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\wwwroot\\swagger\\style.css",
       "PackagePath": "staticwebassets\\swagger\\style.css"
     },
     {
