@@ -1,7 +1,8 @@
 # SERVERLAND
  Saityno taikomųjų programų projektavimo kurso projektas
 <hr/>
-<h3>Pasirinktų technologijų aprašymas</h3>
+
+# Pasirinktų technologijų aprašymas
 <p>    DB sprendimas - PostgreSQL</p>
 <P>    Backend - .NET 8 su Entity Framework DB interakcijai</p>
 <p>    Frontend - React su Node.js</p>
@@ -9,16 +10,23 @@
 
 <hr/>
 
-<h4>Sistemos paskirtis</h4>
+# Sistemos paskirtis
 
 Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 <hr/>
-<h4>Funkciniai reikalavimai</h4>
+
+# Funkciniai reikalavimai
 
 <p>Klientas gali pats susirinkti serveri ir jį užsisakyti</p>
 <p>Admin gali  surinkti serveri</p>
 <p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.)</p>
 <p>Darbuotojas gali pildyti inventoriaus informacija</p>
+<hr/>
+
+# Naudotojo sąsaja
+
+
+
 <hr/>
 
 # API Dokumentacija: SERVERLAND
