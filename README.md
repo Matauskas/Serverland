@@ -23,6 +23,10 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 <p>Darbuotojas gali pildyti inventoriaus informacija</p>
 <hr/>
 
+# Sistemos architektūra
+
+<hr/>
+
 # Naudotojo sąsaja
 
 ![Login sketch](stuff/login.png)
@@ -317,5 +321,11 @@ Atsakymas (200):
 - **400**: Klaidinga užklausa.
 - **404**: Nerasta.
 - **422**: Nepavyko apdoroti pateiktos informacijos.
+
+<hr/>
+
+# Išvados
+
+<p>Naudotos technologijos yra gerai žinomos ir plačiai taikomos, todėl darbas su jomis buvo gana paprastas. React suteikia prieigą prie daugybės NPM bibliotekų, kurios padėjo lengvai įgyvendinti įvairias funkcijas ir reikalavimus</p>
 
 
