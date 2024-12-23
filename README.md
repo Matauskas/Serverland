@@ -17,9 +17,8 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 
 # Funkciniai reikalavimai
 <p> Svečias gali peržiūrėti serverius ir kategorijas <p>
-<p>Klientas gali pats susirinkti serveri</p>
-<p>Admin gali  surinkti serveri</p>
-<p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.)</p>
+<p>Klientas gali peržiūrėti serverius, kategorijas ir dalis. Gali sukurti nauja dalį, updatinti ir ištrinti</p>
+<p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.) gali viską daryti</p>
 <hr/>
 
 # Sistemos architektūra
