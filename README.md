@@ -16,11 +16,10 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 <hr/>
 
 # Funkciniai reikalavimai
-
+<p> Svečias gali peržiūrėti serverius <p>
 <p>Klientas gali pats susirinkti serveri ir jį užsisakyti</p>
 <p>Admin gali  surinkti serveri</p>
 <p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.)</p>
-<p>Darbuotojas gali pildyti inventoriaus informacija</p>
 <hr/>
 
 # Sistemos architektūra
