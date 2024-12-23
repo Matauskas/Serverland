@@ -26,10 +26,15 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 # Naudotojo sąsaja
 
 ![Login sketch](stuff/login.png)
+
 ![Login implemented](stuff/loginss.png)
+
 ![main sketch](stuff/main.png)
+
 ![main window implemented](stuff/mainss.png)
+
 ![modal sketch](stuff/modal.png)
+
 ![modal implemented](stuff/modalss.png)
 
 
