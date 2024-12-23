@@ -135,15 +135,14 @@ Atsakymas (200):
 ```json
 Užklausa:
 {
-  "description": "Updated description"
+  "manufacturer": "Updated description"
 }
 
 Atsakymas (200):
 {
   "id": 1,
-  "manufacturer": "Dell",
-  "type": "Tower",
-  "description": "Updated description"
+  "manufacturer": "Updated description",
+  "type": "Tower"
 }
 ```
 
@@ -212,6 +211,7 @@ Atsakymas (201):
   "disk_count": 8,
   "generation": "11th",
   "os": false
+  "catgeoryId": 1
 }
 ```
 
@@ -221,6 +221,19 @@ Atsakymas (201):
 - **Atsako kodai:**
   - `200`: Pateikiamas serveris.
   - `404`: Serveris nerastas.
+ 
+**Pavyzdys:**
+ ```json
+Atsakymas (200):
+{
+  "id": 3,
+  "model": "HPE ProLiant DL380",
+  "disk_count": 8,
+  "generation": "11th",
+  "os": false
+  "catgeoryId": 1
+}
+```
 
 #### 2.4. Atnaujinti serverį pagal ID
 - **Endpoint:** `/category/{categoryId}/server/{serverId}`
@@ -230,6 +243,24 @@ Atsakymas (201):
   - `400`: Klaidinga užklausa.
   - `404`: Serveris nerastas.
   - `422`: Nepavyko apdoroti pateiktos informacijos.
+ 
+**Pavyzdys:**
+```json
+Užklausa:
+{
+  "generation": "Updated generation"
+}
+
+Atsakymas (200):
+{
+  "id": 3,
+  "model": "HPE ProLiant DL380",
+  "disk_count": 8,
+  "generation": "Updated generation",
+  "os": false
+  "catgeoryId": 1
+}
+```
 
 #### 2.5. Ištrinti serverį pagal ID
 - **Endpoint:** `/category/{categoryId}/server/{serverId}`
@@ -282,6 +313,35 @@ Atsakymas (200):
   - `201`: Dalis sukurta sėkmingai.
   - `400`: Klaidinga užklausa.
   - `422`: Nepavyko apdoroti pateiktos informacijos.
+ 
+**Pavyzdys:**
+```json
+Užklausa:
+{
+    "cpu": "2 x Intel Xeon Gold 6564",
+    "ram": "8 x 32GB DDR4 3200MHz",
+    "raid": "H740",
+    "network": "FLR360",
+    "ssd": "3 x 1.8TB SSD",
+    "hdd": "2 x 2TB",
+    "psu": "1100W",
+    "rails": false
+}
+
+Atsakymas (201):
+{
+    "id": 1,
+    "cpu": "2 x Intel Xeon Gold 6564",
+    "ram": "8 x 32GB DDR4 3200MHz",
+    "raid": "H740",
+    "network": "FLR360",
+    "ssd": "3 x 1.8TB SSD",
+    "hdd": "2 x 2TB",
+    "psu": "1100W",
+    "rails": false,
+    "serverId": 1
+}
+```
 
 #### 3.3. Gauti dalį pagal ID
 - **Endpoint:** `/category/{categoryId}/server/{serverId}/part/{partId}`
@@ -289,6 +349,23 @@ Atsakymas (200):
 - **Atsako kodai:**
   - `200`: Pateikiama dalis.
   - `404`: Dalis nerasta.
+
+**Pavyzdys:**
+ ```json
+Atsakymas (200):
+{
+    "id": 1,
+    "cpu": "2 x Intel Xeon Gold 6564",
+    "ram": "8 x 32GB DDR4 3200MHz",
+    "raid": "H740",
+    "network": "FLR360",
+    "ssd": "3 x 1.8TB SSD",
+    "hdd": "2 x 2TB",
+    "psu": "1100W",
+    "rails": false,
+    "serverId": 1
+}
+```
 
 #### 3.4. Atnaujinti dalį pagal ID
 - **Endpoint:** `/category/{categoryId}/server/{serverId}/part/{partId}`
@@ -298,6 +375,28 @@ Atsakymas (200):
   - `400`: Klaidinga užklausa.
   - `404`: Dalis nerasta.
   - `422`: Nepavyko apdoroti pateiktos informacijos.
+
+**Pavyzdys:**
+```json
+Užklausa:
+{
+  "cpu": "Updated cpu"
+}
+
+Atsakymas (200):
+{
+    "id": 1,
+    "cpu": "Updated cpu",
+    "ram": "8 x 32GB DDR4 3200MHz",
+    "raid": "H740",
+    "network": "FLR360",
+    "ssd": "3 x 1.8TB SSD",
+    "hdd": "2 x 2TB",
+    "psu": "1100W",
+    "rails": false,
+    "serverId": 1
+}
+```
 
 #### 3.5. Ištrinti dalį pagal ID
 - **Endpoint:** `/category/{categoryId}/server/{serverId}/part/{partId}`
