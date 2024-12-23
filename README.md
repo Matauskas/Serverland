@@ -16,11 +16,11 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 <h4>Funkciniai reikalavimai</h4>
 
 <p>Klientas gali pats susirinkti serveri ir jį užsisakyti</p>
-<p>Klientas gali bendrauti su darbuotoju</p>
-<p>Darbuotojas gali klientui surinkti serveri</p>
+<p>Admin gali  surinkti serveri</p>
 <p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.)</p>
 <p>Darbuotojas gali pildyti inventoriaus informacija</p>
 <hr/>
+
 # API Dokumentacija: SERVERLAND
 
 ## Aprašymas
