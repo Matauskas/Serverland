@@ -25,6 +25,8 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 
 # Naudotojo sąsaja
 
+![Login sketch](stuff/login.png)
+
 
 
 <hr/>
