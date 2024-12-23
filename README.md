@@ -1,7 +1,8 @@
 # SERVERLAND
  Saityno taikomųjų programų projektavimo kurso projektas
 <hr/>
-<h3>Pasirinktų technologijų aprašymas</h3>
+
+# Pasirinktų technologijų aprašymas
 <p>    DB sprendimas - PostgreSQL</p>
 <P>    Backend - .NET 8 su Entity Framework DB interakcijai</p>
 <p>    Frontend - React su Node.js</p>
@@ -9,16 +10,38 @@
 
 <hr/>
 
-<h4>Sistemos paskirtis</h4>
+# Sistemos paskirtis
 
 Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 <hr/>
-<h4>Funkciniai reikalavimai</h4>
+
+# Funkciniai reikalavimai
 
 <p>Klientas gali pats susirinkti serveri ir jį užsisakyti</p>
 <p>Admin gali  surinkti serveri</p>
 <p>Administratorius gal administruoti svetaine (blokuoti, trinti, sekti informacija t.t.)</p>
 <p>Darbuotojas gali pildyti inventoriaus informacija</p>
+<hr/>
+
+# Sistemos architektūra
+
+<hr/>
+
+# Naudotojo sąsaja
+
+![Login sketch](stuff/login.png)
+
+![Login implemented](stuff/loginss.png)
+
+![main sketch](stuff/main.png)
+
+![main window implemented](stuff/mainss.png)
+
+![modal sketch](stuff/modal.png)
+
+![modal implemented](stuff/modalss.png)
+
+
 <hr/>
 
 # API Dokumentacija: SERVERLAND
@@ -298,5 +321,11 @@ Atsakymas (200):
 - **400**: Klaidinga užklausa.
 - **404**: Nerasta.
 - **422**: Nepavyko apdoroti pateiktos informacijos.
+
+<hr/>
+
+# Išvados
+
+<p>Naudotos technologijos yra gerai žinomos ir plačiai taikomos, todėl darbas su jomis buvo gana paprastas. React suteikia prieigą prie daugybės NPM bibliotekų, kurios padėjo lengvai įgyvendinti įvairias funkcijas ir reikalavimus</p>
 
 

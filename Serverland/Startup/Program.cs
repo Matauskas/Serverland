@@ -85,6 +85,11 @@ builder.Services
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
+
+var dbContext = scope.ServiceProvider.GetRequiredService<ServerDbContext>();
+dbContext.Database.Migrate();
+
+
 var dbSeeder = scope.ServiceProvider.GetRequiredService<AuthSeeder>();
 await dbSeeder.SeedAsync();
 
@@ -92,7 +97,7 @@ app.AddAuthApi();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors("AllowLocalhost3000"); // Use the defined CORS policy here
+app.UseCors("AllowLocalhost3000");
 app.UseAuthentication();
 app.UseAuthorization();
 
