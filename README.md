@@ -529,6 +529,6 @@ Atsakymas:
 
 # Išvados
 
-<p>Naudotos technologijos yra gerai žinomos ir plačiai taikomos, todėl darbas su jomis buvo gana paprastas. React suteikia prieigą prie daugybės NPM bibliotekų, kurios padėjo lengvai įgyvendinti įvairias funkcijas ir reikalavimus</p>
+<p>Naudotos technologijos yra gerai žinomos ir plačiai taikomos, todėl darbas su jomis buvo gana paprastas. React suteikia prieigą prie daugybės NPM bibliotekų, kurios padėjo lengvai įgyvendinti įvairias funkcijas ir reikalavimus. Pavyko implementuoti backend naudojant Digital Ocean. Tačiau buvo susidurta su kompiuterio problemom, kurios neleido ilgą laiką prisėsti ir padaryti darbą kokybiškai</p>
 
 
