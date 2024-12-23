@@ -25,6 +25,8 @@ Internetinė svetainė skirta užsisakyti/susirinkti serverį pagal savo norus
 
 # Sistemos architektūra
 
+![architektura](stuff/Model.png)
+
 <hr/>
 
 # Naudotojo sąsaja
