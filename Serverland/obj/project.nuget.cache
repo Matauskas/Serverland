@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0WiEcsK7qT+HknXQf9GkSE8M1jgFQl/I8xD4jEHIlmM8SpI/rsMQNfIbSRkzFtvtMlu8GHtaYoGcf8VLpGikzQ==",
+  "dgSpecHash": "RC1DcvWnvp0vJ8OWZw4nFMK7E6o3AHrTX1tzbiNb7xBr0Wq1u/SOM/S7Ta089SqmwDJrRjLw/DLTefJ5BkhJOQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\matas\\Desktop\\Serverland\\serverland\\Serverland.csproj",
+  "projectFilePath": "C:\\Users\\matas\\Desktop\\Serverland\\Serverland\\Serverland.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\matas\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\matas\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
