@@ -308,6 +308,110 @@ Atsakymas (200):
 
 ---
 
+### Vartotojų autentifikacija
+
+#### Registracija
+**POST** `/api/register`
+
+**Atsakymo kodai:**
+- `200`: Registracija sėkminga
+
+**Pavyzdys:**
+
+Užklausa:
+```http
+POST /api/register HTTP/1.1
+Host: api.server.test
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "securepassword"
+}
+```
+
+Atsakymas:
+```json
+{
+  "message": "User registered successfully"
+}
+```
+
+#### Prisijungimas
+**POST** `/api/login`
+
+**Atsakymo kodai:**
+- `200`: Prisijungimas sėkmingas
+
+**Pavyzdys:**
+
+Užklausa:
+```http
+POST /api/login HTTP/1.1
+Host: api.server.test
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "securepassword"
+}
+```
+
+Atsakymas:
+```json
+{
+  "accessToken": "eyJhb...",
+  "refreshToken": "eyJhb..."
+}
+```
+
+#### Atnaujinti Access Token
+**POST** `/api/accessToken`
+
+**Atsakymo kodai:**
+- `200`: Token sėkmingai atnaujintas
+
+**Pavyzdys:**
+
+Užklausa:
+```http
+POST /api/accessToken HTTP/1.1
+Host: api.server.test
+Authorization: Bearer <refresh_token>
+```
+
+Atsakymas:
+```json
+{
+  "accessToken": "eyJhb..."
+}
+```
+
+#### Atsijungimas
+**POST** `/api/logout`
+
+**Atsakymo kodai:**
+- `200`: Atsijungimas sėkmingas
+
+**Pavyzdys:**
+
+Užklausa:
+```http
+POST /api/logout HTTP/1.1
+Host: api.server.test
+Authorization: Bearer <access_token>
+```
+
+Atsakymas:
+```json
+{
+  "message": "Logged out successfully"
+}
+```
+
+---
+
+
 ## Komponentai
 ### Schemos
 1. **category**: Kategorijos objektas.
